@@ -1,7 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import styled from "./style/embla.css";
+import { createRoot } from "react-dom/client";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+import React from "react";
+import App from "./App";
+import "./style/reset.css";
+import "./style/embla.css";
+
+createRoot(document.getElementById("root")).render(<App />);

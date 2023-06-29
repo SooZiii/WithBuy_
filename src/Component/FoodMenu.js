@@ -147,7 +147,7 @@ export default function FoodMenu() {
     <FoodMenuContainer>
       <Row>
         <MenuItem>
-          <LinkTag href="#none">
+          <LinkTag href="/Pages/Vegetable">
             <ImageWrapper>
               <Image src="/FoodMenu/img1.png" alt="Food 1" />
               <TextWrap>야채</TextWrap>

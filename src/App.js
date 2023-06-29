@@ -1,39 +1,75 @@
-import firebase from "firebase/app";
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Detail from "./Pages/Detail";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
 import Mainpage from "./Pages/index";
 import Login from "./Pages/Login";
-import "firebase/firestore";
-import styled from "./style/reset.css";
+import SignUp from "./Pages/SignUp";
+import Cart from "./Pages/Cart";
+import Wishlist from "./Pages/Wishlist";
+import Vegetable from "./Pages/Vegetable";
+import { CartContextProvider } from "./Pages/cartContext";
 
-function App() {
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth, firebaseApp } from "./firebase";
+
+const NotFound = () => {
+  return <div>Page not found</div>;
+};
+
+const App = () => {
+  const [userData, setUserData] = useState(null);
+
   useEffect(() => {
-    // Firebase 구성 정보
-    const firebaseConfig = {
-      apiKey: "AIzaSyD1s896UjiB44c7TM0ur9stq-N9X9qZmXU",
-      authDomain: "withbuy-92456.firebaseapp.com",
-      projectId: "withbuy-92456",
-      storageBucket: "withbuy-92456.appspot.com",
-      messagingSenderId: "379873114124",
-      appId: "1:379873114124:web:f6b1bf54219c9606779629",
-    };
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // 사용자가 로그인된 상태
+        setUserData(user.displayName);
+      } else {
+        // 사용자가 로그아웃된 상태
+        setUserData(null);
+      }
+    });
 
-    // Firebase 초기화
-    firebase.initializeApp(firebaseConfig);
+    return () => unsubscribe(); // 컴포넌트 언마운트 시 이벤트 구독 해제
   }, []);
 
+  const handleGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        setUserData(data.user.displayName);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Mainpage />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <CartContextProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Mainpage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/pages/vegetable" element={<Vegetable />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/detail/:id" element={<Detail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </CartContextProvider>
   );
-}
+};
 
 export default App;
