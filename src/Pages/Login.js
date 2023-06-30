@@ -53,7 +53,15 @@ const GoogleButton = styled.button`
   align-items: center;
   gap: 0.5rem;
 `;
+const GoToWishlistButton = styled(Button)`
+  background-color: #65ade1;
+  color: white;
+`;
 
+const LogoutButton = styled(Button)`
+  background-color: #db4437;
+  color: white;
+`;
 const firebaseConfig = {
   apiKey: "AIzaSyD1s896UjiB44c7TM0ur9stq-N9X9qZmXU",
   authDomain: "withbuy-92456.firebaseapp.com",
@@ -126,7 +134,7 @@ function Login() {
       {!isLoggedIn ? (
         <LoginForm onSubmit={handleLogin}>
           <Input
-            type="text"
+            type="emali"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
@@ -145,13 +153,11 @@ function Login() {
         </LoginForm>
       ) : (
         <div>
-          <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button>
-          {isLoggedIn && (
-            <Link to="/wishlist">
-              <FontAwesomeIcon icon={faUserGear} />
-            </Link>
-          )}
-          <button onClick={handleLogout}>Logout</button>
+          <GoToWishlistButton onClick={() => navigate("/wishlist")}>
+            Go to Wishlist
+          </GoToWishlistButton>
+
+          <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
         </div>
       )}
     </LoginContainer>

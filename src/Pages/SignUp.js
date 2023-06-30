@@ -1,14 +1,61 @@
 import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
+const SignUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    div {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      width: 300px;
+    }
+
+    p {
+      color: red;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+  }
+`;
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  // const [showSuccessModal, setShowSuccessModal] = useState(false);
-  // const [showFailureModal, setShowFailureModal] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -61,7 +108,7 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <SignUpContainer>
       <h2>회원가입</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -72,6 +119,7 @@ const SignUp = () => {
             value={email}
             onChange={handleEmailChange}
             required
+            placeholder="이메일을 입력하시오"
           />
         </div>
         <div>
@@ -82,6 +130,7 @@ const SignUp = () => {
             value={password}
             onChange={handlePasswordChange}
             required
+            placeholder="6글자 이상 입력하시오"
           />
         </div>
         <div>
@@ -97,9 +146,8 @@ const SignUp = () => {
         {passwordError && <p>{passwordError}</p>}
         <button type="submit">가입하기</button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
 export default SignUp;
-//커밋

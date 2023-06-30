@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
 import { CartContext } from "./cartContext";
+import styled from "styled-components";
+
+const EmptyWishlistMessage = styled.p`
+  font-size: 3rem;
+  text-align: center;
+  margin: 5rem 0;
+`;
 
 const Wishlist = () => {
   const { wishlistItems, addToWishlist, increaseQuantity, decreaseQuantity } =
@@ -25,7 +32,9 @@ const Wishlist = () => {
   };
 
   if (!wishlistItems || wishlistItems.length === 0) {
-    return <p>위시리스트가 비어 있습니다.</p>;
+    return (
+      <EmptyWishlistMessage>위시리스트가 비어 있습니다.</EmptyWishlistMessage>
+    );
   }
 
   return (
