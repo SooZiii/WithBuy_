@@ -47,12 +47,14 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  margin-right: 10px;
-  padding: 5px 10px;
+  width: 18rem;
+  margin-right: 1rem;
+  padding: 0.5rem 5rem;
   border: none;
-  background-color: #007bff;
+  background-color: rgb(160 166 174);
   color: #fff;
   cursor: pointer;
+  border-radius: 3rem;
 `;
 const SortButtonContainer = styled.div`
   padding-top: 5rem;
@@ -172,10 +174,10 @@ const Vegetable = () => {
 
   const handleAddToCart = (vegetable) => {
     addToCart(vegetable);
-    console.log("장바구니에 추가:", vegetable);
+    console.log("장바구니+:", vegetable);
   };
   const handleAddToWishlist = (vegetable) => {
-    console.log("위시리스트에 추가:", vegetable);
+    console.log("위시리스트+:", vegetable);
   };
 
   const handleSortOrder = (order) => {
@@ -208,10 +210,10 @@ const Vegetable = () => {
             <p>{vegetable.price}</p>
             <ButtonContainer>
               <Button onClick={() => handleAddToCart(vegetable)}>
-                장바구니에 담기
+                장바구니+
               </Button>
               <Button onClick={() => handleAddToWishlist(vegetable)}>
-                위시리스트에 추가
+                위시리스트+
               </Button>
             </ButtonContainer>
           </GridItem>

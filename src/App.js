@@ -9,7 +9,7 @@ import SignUp from "./Pages/SignUp";
 import Cart from "./Pages/Cart";
 import Wishlist from "./Pages/Wishlist";
 import Vegetable from "./Pages/Vegetable";
-import { CartContextProvider } from "./Pages/cartContext";
+import { CartProvider } from "./Pages/cartContext";
 
 import {
   getAuth,
@@ -53,7 +53,7 @@ const App = () => {
   };
 
   return (
-    <CartContextProvider>
+    <CartProvider>
       <Router>
         <Header />
         <Routes>
@@ -68,7 +68,7 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-    </CartContextProvider>
+    </CartProvider>
   );
 };
 

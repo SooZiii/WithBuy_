@@ -1,30 +1,17 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 
-export const CartContext = React.createContext();
+export const CartContext = createContext();
 
-export const CartContextProvider = ({ children }) => {
+export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // 카트 관련 함수들...
-
-  const clearCart = () => {
-    setCartItems([]);
-  };
-
-  const toggleLogin = () => {
-    setIsLoggedIn((prevLoggedIn) => !prevLoggedIn);
-  };
-
-  const contextValue = {
-    cartItems,
-    isLoggedIn,
-    // ... 다른 필요한 값들
-    clearCart,
-    toggleLogin,
+  const addToCart = (item) => {
+    setCartItems([...cartItems, item]);
   };
 
   return (
-    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ cartItems, addToCart }}>
+      {children}
+    </CartContext.Provider>
   );
 };
